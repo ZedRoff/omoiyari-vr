@@ -1,2 +1,8 @@
 # omoiyari-vr
-Version VR de Omoiyari
+
+## Lien google drive
+
+## Lien APK
+
+## Lien vidéo démo
+

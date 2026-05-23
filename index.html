@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>OMOIYARI - GDD Dashboard & Diagramme VR</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+   <style>
+       :root {
+           --bg-color: #0b1b3d;
+           --card-bg: #ffffff;
+           --text-dark: #0b1b3d;
+           --text-light: #ffffff;
+           --accent-red: #d11a2a;
+           --border-dark: #0b1b3d;
+           --light-blue: #f0f4f8;
+           --light-red: #fff5f5;
+           --light-green: #f0fdf4;
+           --sakura-pink: #fbcfe8;
+           --japan-maroon: #5c413c;
+       }
+
+
+       * {
+           box-sizing: border-box;
+           margin: 0;
+           padding: 0;
+           font-family: 'Helvetica Neue', Arial, sans-serif;
+       }
+
+
+       body {
+           background-color: var(--bg-color);
+           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 40c0-11 9-20 20-20s20 9 20 20M40 40c0-11 9-20 20-20s20 9 20 20M20 20c0-11 9-20 20-20s20 9 20 20' fill='none' stroke='%23162a53' stroke-width='1.5'/%3E%3C/svg%3E");
+           color: var(--text-dark);
+           padding: 30px;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+       }
+
+
+       /* Barre d'outils */
+       .toolbar {
+           background: rgba(255, 255, 255, 0.95);
+           padding: 15px 30px;
+           border-radius: 50px;
+           margin-bottom: 30px;
+           width: 100%;
+           max-width: 1600px;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+           border: 2px solid var(--accent-red);
+           position: sticky;
+           top: 10px;
+           z-index: 100;
+       }
+
+
+       .toolbar h1 {
+           font-size: 1.1rem;
+           color: var(--text-dark);
+       }
+
+
+       .actions-group {
+           display: flex;
+           gap: 12px;
+       }
+
+
+       .btn {
+           color: white;
+           border: none;
+           padding: 10px 22px;
+           font-size: 0.85rem;
+           font-weight: bold;
+           border-radius: 25px;
+           cursor: pointer;
+           transition: all 0.2s ease;
+           display: flex;
+           align-items: center;
+           gap: 8px;
+       }
+
+
+       .btn-print {
+           background-color: var(--accent-red);
+       }
+
+
+       .btn-print:hover {
+           background-color: #aa1220;
+           transform: translateY(-2px);
+       }
+
+
+       .btn-save {
+           background-color: #0b1b3d;
+       }
+
+
+       .btn-save:hover {
+           background-color: #17326c;
+           transform: translateY(-2px);
+       }
+
+
+       /* Grille */
+       .diagram-container {
+           width: 100%;
+           max-width: 1600px;
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           gap: 25px;
+       }
+
+
+       .column {
+           display: flex;
+           flex-direction: column;
+           gap: 25px;
+       }
+
+
+       .card {
+           background-color: var(--card-bg);
+           border-radius: 16px;
+           border: 4px solid var(--border-dark);
+           padding: 24px;
+           position: relative;
+           display: flex;
+           flex-direction: column;
+           gap: 15px;
+           box-shadow: 0 8px 0px rgba(0, 0, 0, 0.15);
+       }
+
+
+       /* En-tête Pilule */
+       .card-header-pill {
+           background-color: var(--bg-color);
+           color: var(--text-light);
+           padding: 8px 20px;
+           border-radius: 30px;
+           font-size: 0.85rem;
+           font-weight: bold;
+           letter-spacing: 0.5px;
+           display: inline-flex;
+           align-items: center;
+           gap: 10px;
+           align-self: start;
+           border: 2px solid var(--accent-red);
+           margin-top: -10px;
+       }
+
+
+       .card-header-pill i {
+           color: #ff4d5a;
+           font-size: 1.1rem;
+       }
+
+
+       /* Carte Hero Principale */
+       .hero-card {
+           background: linear-gradient(135deg, #0f244d 0%, #061124 100%);
+           border: 4px solid var(--accent-red);
+           color: white;
+           padding: 26px;
+           border-radius: 16px;
+           position: relative;
+           overflow: hidden;
+           display: flex;
+           flex-direction: column;
+           gap: 10px;
+       }
+
+
+       .hero-card h2 {
+           font-size: 2.5rem;
+           letter-spacing: 4px;
+           font-weight: 900;
+           text-shadow: 2px 2px 0px var(--accent-red);
+       }
+
+
+       .japanese-sub {
+           font-size: 1.2rem;
+           letter-spacing: 2px;
+           color: var(--sakura-pink);
+           font-weight: bold;
+       }
+
+
+       .hero-meta {
+           font-size: 0.82rem;
+           line-height: 1.5;
+           border-top: 1px solid rgba(255, 255, 255, 0.2);
+           padding-top: 10px;
+       }
+
+
+       .inner-title {
+           color: var(--accent-red);
+           font-size: 0.85rem;
+           font-weight: bold;
+           text-transform: uppercase;
+           border-bottom: 2px solid #eef2f6;
+           padding-bottom: 4px;
+           margin-bottom: 5px;
+           display: flex;
+           align-items: center;
+           gap: 8px;
+       }
+
+
+       ul {
+           list-style: none;
+       }
+
+
+       li {
+           font-size: 0.82rem;
+           margin-bottom: 4px;
+           position: relative;
+           padding-left: 14px;
+           line-height: 1.4;
+           color: #2d3748;
+       }
+
+
+       li::before {
+           content: "•";
+           color: var(--accent-red);
+           font-weight: bold;
+           position: absolute;
+           left: 0;
+       }
+
+
+       .flex-split {
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           gap: 12px;
+       }
+
+
+       .sub-box-pc,
+       .sub-box-vr,
+       .sub-box-nice {
+           border-radius: 10px;
+           padding: 12px;
+       }
+
+
+       .sub-box-pc {
+           background-color: var(--light-blue);
+           border: 2px solid #cbd5e1;
+       }
+
+
+       .sub-box-vr {
+           background-color: var(--light-red);
+           border: 2px solid #fecaca;
+       }
+
+
+       .sub-box-nice {
+           background-color: var(--light-green);
+           border: 2px solid #bbf7d0;
+       }
+
+
+       .badge-platform {
+           font-size: 0.72rem;
+           font-weight: bold;
+           color: white;
+           padding: 3px 8px;
+           border-radius: 4px;
+           display: inline-flex;
+           align-items: center;
+           gap: 5px;
+           margin-bottom: 6px;
+       }
+
+
+       .capsule-box {
+           background: #fafafa;
+           border: 2px solid #e2e8f0;
+           border-radius: 10px;
+           padding: 12px;
+           margin-top: 5px;
+       }
+
+
+       .target-badge {
+           background-color: var(--accent-red);
+           color: white;
+           font-weight: bold;
+           font-size: 0.75rem;
+           padding: 5px 10px;
+           border-radius: 6px;
+           display: inline-flex;
+           align-items: center;
+           gap: 6px;
+           align-self: flex-start;
+       }
+
+
+       .parchment-card {
+           background-color: #fcf8ed;
+           border: 4px solid #b38f43;
+           box-shadow: 0 8px 0px rgba(179, 143, 67, 0.2);
+       }
+
+
+       .parchment-card .card-header-pill {
+           background-color: #b38f43;
+           border-color: #8c6d2e;
+       }
+
+
+       .parchment-card .card-header-pill i {
+           color: #ffeeb3;
+       }
+
+
+       .matrix-flow {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           gap: 20px;
+           margin: 10px 0;
+           font-size: 1.5rem;
+       }
+
+
+       .matrix-flow i.fa-arrow-right-arrow-left {
+           color: var(--accent-red);
+       }
+
+
+       [contenteditable="true"]:focus {
+           outline: 2px dashed var(--accent-red);
+           background-color: rgba(209, 26, 42, 0.05);
+           border-radius: 4px;
+       }
+
+
+       @media print {
+           .toolbar {
+               display: none !important;
+           }
+
+
+           body {
+               background-color: white !important;
+               background-image: none !important;
+               padding: 0 !important;
+           }
+
+
+           .diagram-container {
+               grid-template-columns: repeat(3, 1fr) !important;
+               gap: 12px !important;
+           }
+
+
+           .card {
+               box-shadow: none !important;
+               page-break-inside: avoid;
+           }
+       }
+   </style>
+</head>
+
+
+<body>
+
+
+   <div class="toolbar">
+       <h1 contenteditable="true"><i class="fa-solid fa-pen-to-square"></i> OMOIYARI GDD Live Engine &mdash; Modifiez
+           directement vos blocs de configuration puis exportez</h1>
+       <div class="actions-group">
+           <button class="btn btn-save" onclick="saveHTML()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer le GDD
+               (.html)</button>
+           <button class="btn btn-print" onclick="window.print()"><i class="fa-solid fa-file-pdf"></i> Imprimer /
+               PDF</button>
+       </div>
+   </div>
+
+
+   <div class="diagram-container">
+
+
+       <div class="column">
+           <div class="toolbar" style="display:flex; gap:15px;">
+               <span contenteditable="true" style="display:flex;gap:5px;"><i class="fas fa-bullhorn"></i>
+                   <h1>Pitch</h1>
+               </span>
+               <div style="background:black;width:1px;height:150px;"></div>
+               <p>
+                   Un jeu VR immersif qui plonge le joueur dans des capsules sensorielles simulant différents handicaps
+                   afin de faire naître l’empathie et sensibiliser aux défis du quotidien des personnes en situation de
+                   handicap.
+               </p>
+           </div>
+
+
+           <div class="hero-card">
+               <h2 contenteditable="true">OMOIYARI</h2>
+               <div class="japanese-sub" contenteditable="true">おもいやり | 思いやり</div>
+               <div class="hero-meta" contenteditable="true">
+                   <strong>Axe Principal :</strong> Sensibilisation active & Empathie sensorielle virtuelle.<br><br>
+                   <strong>Timeline :</strong> Rendu final le 24 mai 2026.<br><br>
+                   <strong>Trame Narrative :</strong> Ford Benson projette Sagaeru au cœur d'une simulation
+                   d'apprentissage suite au rejet cruel de sa candidature à cause de son handicap. Le joueur doit y
+                   traverser 5 capsules immersives pour décrypter les verrous physiques et psychologiques de notre
+                   société.
+
+
+               </div>
+           </div>
+
+
+           <div class="card">
+               <div class="card-header-pill" contenteditable="true">
+                   <i class="fa-solid fa-torii-gate"></i> 1. DESIGN TECHNIQUE & TARGETS
+               </div>
+               <div>
+                   <div class="inner-title" contenteditable="true"><i class="fa-solid fa-microchip"></i> Stack
+                       Environnement (2026)</div>
+                   <ul contenteditable="true">
+                       <li><strong>Engine :</strong> Unity version 6000</li>
+                       <li><strong>Packages XR :</strong> XR Interaction Tools, XR Device Simulator, XR Starter Assets,
+                           Meta XR Simulator</li>
+                       <li><strong>Hardware Déploiement :</strong> Meta Quest 2</li>
+                       <li><strong>IDE de Dev :</strong> Windows 11 & Visual Studio</li>
+                   </ul>
+               </div>
+
+
+               <div class="flex-split">
+                   <div class="sub-box-pc">
+                       <span class="badge-platform" style="background-color:#4a5568;"><i
+                               class="fa-solid fa-gamepad"></i> PC Simulator</span>
+                       <ul contenteditable="true">
+                           <li>Déplacement : ZQSD / Fauteuil</li>
+                           <li>Saisie : Clavier [E] / Clic Souris</li>
+                           <li>Interface : HUD 2D Écran</li>
+                       </ul>
+                   </div>
+                   <div class="sub-box-vr">
+                       <span class="badge-platform" style="background-color:var(--accent-red)"><i
+                               class="fa-solid fa-vr-cardboard"></i> Quest 2 Natif</span>
+                       <ul contenteditable="true">
+                           <li>Saisie : Manette [A] / Laser Raycast</li>
+                           <li>Grab Interactor (Triggers)</li>
+                           <li>UI Diégétique Intégrée 3D</li>
+                       </ul>
+                   </div>
+               </div>
+           </div>
+
+
+           <div class="card">
+               <div class="card-header-pill" contenteditable="true">
+                   <i class="fa-solid fa-users"></i> 2. TARGET AUDIENCE & POIDS UX
+               </div>
+               <div>
+                   <div class="inner-title" contenteditable="true"><i class="fa-solid fa-bullseye"></i> Cibles
+                       Stratégiques</div>
+                   <ul contenteditable="true">
+                       <li><strong>Profils Empathiques :</strong> Joueurs sensibles aux expériences introspectives et
+                           désireux de comprendre le quotidien des personnes en situation de handicap.</li>
+                       <li><strong>Gamers :</strong> Joueurs friands de simulation mécanique pure (Inspirations :
+                           *Eurotruck Simulator*, *Supermarket Simulator*).</li>
+                       <li><strong>Consultants experts :</strong> Personnes en situation de handicap sollicitées pour
+                           l'amélioration continue des features du projet.</li>
+                       <li><strong>Grand Public :</strong> Novices de la VR cherchant une expérience sensorielle
+                           impactante.</li>
+                   </ul>
+               </div>
+               <div>
+                   <div class="inner-title" contenteditable="true"><i class="fa-solid fa-heart-crack"></i> Freins Clés
+                       (Pains & Constraints)</div>
+                   <ul contenteditable="true">
+                       <li>Stéréotypes ancrés & carence d'outils d'empathie réalistes.</li>
+                       <li>Risques physiques : Motion Sickness élevé en fauteuil roulant.</li>
+                       <li>Exigence : Représentation scientifique, éthique et digne du handicap.</li>
+                   </ul>
+               </div>
+           </div>
+<div class="card">
+               <div class="card-header-pill" contenteditable="true">
+                   <i class="fa-solid fa-circle-nodes"></i> 3. THÉORIE DES I2
+               </div>
+
+
+               <div class="flex-split">
+                   <div class="i2-column"
+                       style="background: #fafafa; border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px;">
+                       <div class="inner-title"
+                           style="color: var(--accent-red); font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"
+                           contenteditable="true">
+                           <i class="fa-solid fa-hand-pointer"></i> Interaction
+                       </div>
+                       <ul contenteditable="true">
+                           <li><strong>Mains libres :</strong> Contrôle de la lumière directive avec les mouvements de
+                               mains (Autisme).</li>
+                           <li><strong>Physique fine :</strong> Mélanger manuellement les solutions chimiques avec les
+                               mains (Dyslexie).</li>
+                           <li><strong>Feedback visuel :</strong> Pointeur laser sur les objets interactifs (changement
+                               de couleur au survol).</li>
+                           <li><strong>Locomotion :</strong> Combinaisons de mouvements avec les mains pour propulser
+                               le fauteuil roulant.</li>
+                           <li><strong>Interface :</strong> Navigation et sélection via un menu 3D diégétique.</li>
+                           <li><strong>Saisie d'objet :</strong> Action de prise assignée au <em>Trigger Droit</em>.
+                           </li>
+                           <li><strong>Puzzle spatial :</strong> Nouvelle interface Tangram gérée en "drag & drop".
+                           </li>
+                           <li><strong>Validation :</strong> Interactions directes dans le monde via le <em>Bouton
+                                   A</em>.</li>
+                           <li><strong>Saisie Physique :</strong> Interface de code PIN en UI 3D avec flèches
+                               interactives pour incrémenter/décrémenter les chiffres de 1 à 9.</li>
+                       </ul>
+                   </div>
+
+
+                   <div class="i2-column"
+                       style="background: #fafafa; border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px;">
+                       <div class="inner-title"
+                           style="color: var(--accent-red); font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"
+                           contenteditable="true">
+                           <i class="fa-solid fa-eye"></i> Immersion
+                       </div>
+                       <ul contenteditable="true">
+                           <li><strong>Rendu optique :</strong> Filtres daltonisme natifs injectés sur la caméra du
+                               casque.</li>
+                           <li><strong>Haptique :</strong> Vibrations ciblées des manettes (simulation des pics de
+                               stress, Autisme).</li>
+                           <li><strong>Présence corporelle :</strong> Avatar diégétique (fauteuil et pieds du joueur
+                               visibles en VR).</li>
+                           <li><strong>Ancrage :</strong> Visualisation immédiate de l'item actuel tenu directement en
+                               main.</li>
+                           <li><strong>Contrainte spatiale :</strong> Limitation du champ de vision périphérique à
+                               180°.</li>
+                           <li><strong>Audio spatialisé :</strong> Sons immersifs contextuels (roues sur le sol, vent,
+                               cœur qui bat).</li>
+                       </ul>
+                   </div>
+               </div>
+           </div>
+
+
+          
+           <div class="card">
+               <div class="card-header-pill" contenteditable="true">
+                   <i class="fa-solid fa-wheelchair"></i> 4. CAPSULES I & II : CONTRAINTES MOTEURS
+               </div>
+
+
+               <div class="capsule-box">
+                   <div class="inner-title" contenteditable="true"><i class="fa-solid fa-wheelchair"></i> Capsule 1 :
+                       Mobilité Réduite</div>
+                   <p style="font-size:0.8rem; color:#4a5568; margin-bottom:6px;" contenteditable="true">
+                       <strong>Action :</strong> Déplacement en fauteuil roulant à travers 3 épreuves rythmiques.
+                       Succession de QTE complexes (exécution en 3 secondes), gestion d'inertie sur des dalles
+                       glissantes et course de vélocité avant effondrement de la zone.
+                   </p>
+                   <ul contenteditable="true">
+                       <li><strong>FX Audio :</strong> Bruits mécaniques des roues, impacts de pluie battante.</li>
+                       <li><strong>UI / Interactions :</strong> Manipulation d'une torche physique pour allumer un
+                           brasier de validation.</li>
+                   </ul>
+               </div>
+
+
+               <div class="capsule-box">
+                   <div class="inner-title" contenteditable="true"><i class="fa-solid fa-eye-low-vision"></i> Capsule 2
+                       : Daltonisme</div>
+                   <p style="font-size:0.8rem; color:#4a5568; margin-bottom:6px;" contenteditable="true">
+                       <strong>Action :</strong> Activation d'un filtre chromatique matériel direct sur la vue du
+                       casque (Deutéranopie / Tritanopie). Exploration d'un parc de jeux (Playground) plongé dans une
+                       brume épaisse pour collecter des blocs géométriques éparpillés.
+                   </p>
+                   <ul contenteditable="true">
+                       <li><strong>Gameplay :</strong> Résolution finale d'un casse-tête Tangram via les slots
+                           d'inventaire.</li>
+                       <li><strong>FX Audio :</strong> Souffle de vent directionnel et retours sonores de bruits de pas
+                           (Footsteps).</li>
+                   </ul>
+               </div>
+           </div>
+
+
+       </div>
+
+
+       <div class="column">
+
+
+      
+      
+
+
+ <div class="card">
+               <div class="card-header-pill" contenteditable="true">
+                   <i class="fa-solid fa-brain"></i> 5. CAPSULES III, IV & V : COGNITION & REX
+               </div>
+
+
+               <div class="capsule-box">
+                   <div class="inner-title" contenteditable="true"><i class="fa-solid fa-bolt-lightning"></i> Capsule 3
+                       : Troubles du Spectre Autistique</div>
+                   <p style="font-size:0.8rem; color:#4a5568; margin-bottom:6px;" contenteditable="true">
+                       <strong>Action :</strong> Labyrinthe obscur où la seule source lumineuse est la torche du
+                       joueur. Un coup de tonnerre retentit toutes les 5 secondes : le joueur encaisse un maximum de 3
+                       charges de stress, au-delà les inputs de déplacements sont totalement inversés.
+                   </p>
+                   <ul contenteditable="true">
+                       <li><strong>Système de Refuges :</strong> Maisons japonaises pour apaiser la jauge de
+                           perturbation.</li>
+                   </ul>
+               </div>
+
+
+               <div class="capsule-box">
+                   <div class="inner-title" contenteditable="true"><i class="fa-solid fa-flask"></i> Capsule 4 :
+                       Dyslexie Dynamique</div>
+                   <p style="font-size:0.8rem; color:#4a5568; margin-bottom:6px;" contenteditable="true">
+                       <strong>Action :</strong> Reconstitution d'une formule de chimie dans un laboratoire. Le tableau
+                       d'instructions applique une distorsion textuelle mobile (lettres inversées, anagrammes). Toutes
+                       les 3 secondes, un rayon de soleil aveugle l'affichage, forçant le joueur à interagir
+                       physiquement avec les rideaux de la salle.
+                   </p>
+               </div>
+
+
+               <div class="capsule-box">
+                   <div class="inner-title" contenteditable="true"><i class="fa-solid fa-graduation-cap"></i> Capsule 5
+                       : Étape Finale - REX & Quiz</div>
+                   <p style="font-size:0.8rem; color:#4a5568; margin-bottom:6px;" contenteditable="true">
+                       <strong>Action :</strong> Retour dans la salle debrief (REX). Le joueur analyse les
+                       documentations collectées, échange avec Ford Benson pour remplir un Quiz d'évaluation de
+                       compétences et déverrouille l'ordinateur central par code PIN pour clore l'expérience.
+                   </p>
+               </div>
+           </div>
+
+
+            <div class="card">
+                   <div class="card-header-pill" contenteditable="true">
+                       <i class="fa-solid fa-shield-virus"></i> 6. OPTIMISATIONS & CYBERSICKNESS
+                   </div>
+
+
+                   <div style="display: flex; flex-direction: column; gap: 15px;">
+
+
+                       <div>
+                           <div class="inner-title"
+                               style="color: var(--accent-red); font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"
+                               contenteditable="true">
+                               <i class="fa-solid fa-gauge-high"></i> Performance & Fluidité
+                           </div>
+                           <ul contenteditable="true">
+                               <li><strong>Target Latence :</strong> Optimisation maximale pour maintenir une latence
+                                   critique inférieure à 20ms.</li>
+                               <li><strong>Baking :</strong> Calcul et calcul préalable des lumières (Light Baking
+                                   statique) dans la Cuisine, le Labo et la Classroom.</li>
+                               <li><strong>Textures ASTC :</strong> Compression matérielle des textures au format ASTC
+                                   pour soulager la mémoire du GPU Meta Quest 2.</li>
+                           </ul>
+                       </div>
+
+
+                       <div>
+                           <div class="inner-title"
+                               style="color: var(--accent-red); font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"
+                               contenteditable="true">
+                               <i class="fa-solid fa-arrows-up-down-left-right"></i> Mécaniques de Déplacement
+                           </div>
+                           <ul contenteditable="true">
+                               <li><strong>Vitesse Constante :</strong> Translation linéaire sans aucune accélération
+                                   ni décélération brusque.</li>
+                               <li><strong>Snap Turning :</strong> Rotation angulaire par paliers fixes et instantanés
+                                   de 30° et 45°.</li>
+                               <li><strong>Continuous Turn Provider :</strong> Option désactivée par défaut ou
+                                   fortement bridée pour éliminer le mal des transports.</li>
+                           </ul>
+                       </div>
+
+
+                       <div>
+                           <div class="inner-title"
+                               style="color: var(--accent-red); font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"
+                               contenteditable="true">
+                               <i class="fa-solid fa-eye-slash"></i> Confort Cognitif & Points d'Ancrage
+                           </div>
+                           <ul contenteditable="true">
+                               <li><strong>Vignettage :</strong> Masquage dynamique de la vision périphérique
+                                   (tunneling) lors des déplacements fluides.</li>
+                               <li><strong>Référence Fixe :</strong> Intégration de repères visuels constants dans
+                                   l'espace (châssis du fauteuil roulant et pieds de l'avatar toujours visibles).</li>
+                           </ul>
+                       </div>
+
+
+                   </div>
+
+
+                   <div class="target-badge"
+                       style="background-color: var(--accent-red); color: white; font-weight: bold; font-size: 0.75rem; padding: 5px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; align-self: flex-start;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-shield-halved"></i> Conforme critères éthiques MDQH 2026
+                   </div>
+               </div>
+
+
+
+
+
+
+
+
+           <div class="card" style="grid-column: span 1;">
+               <div class="card-header-pill" contenteditable="true">
+                   <i class="fa-solid fa-ビジネス fa-list-check"></i>7. DESIGN DES SESSIONS & SEQUENCEURS
+               </div>
+
+
+               <div class="capsule-box"
+                   style="border-left: 4px solid #4a5568; background: #fafafa; padding: 12px; border-radius: 8px;">
+                   <div class="inner-title"
+                       style="color: #4a5568; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-power-off"></i> Pre-Game (Lancement)
+                   </div>
+                   <ul contenteditable="true">
+                       <li><strong>Action :</strong> Affichage de l'avertissement réglementaire PEGI 3, apparition du
+                           logo/titre officiel, puis transition vers le menu principal.</li>
+                       <li><strong>Sound :</strong> Nappe sonore d'ambiance immersive à forte connotation
+                           traditionnelle japonaise.</li>
+                       <li><strong>UI :</strong> Écran d'accueil épuré avec menu flottant pour initialiser et lancer la
+                           partie.</li>
+                   </ul>
+               </div>
+
+
+               <div class="capsule-box"
+                   style="border-left: 4px solid var(--accent-red); background: #fafafa; padding: 12px; border-radius: 8px;">
+                   <div class="inner-title"
+                       style="color: var(--accent-red); font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-wheelchair"></i> Capsule 1 : Mobilité Réduite
+                   </div>
+                   <ul contenteditable="true">
+                       <li><strong>Action :</strong> Le joueur doit surmonter 3 épreuves physiques en fauteuil roulant
+                           : enchaînements rapides de QTE via le mouvement des contrôleurs, gestion de trajectoire sur
+                           sol glissant et franchissement d'obstacles chronométrés.</li>
+                       <li><strong>Sound :</strong> Effet sonore de pluie continue, sons d'ambiance de crise et bruits
+                           mécaniques de roulement du fauteuil.</li>
+                       <li><strong>UI :</strong> Feedback visuel pour allumer des brasiers à la torche. Affichage
+                           contextuel des touches de QTE calquées sur le mapping de la manette Meta Quest 2.</li>
+                   </ul>
+               </div>
+
+
+               <div class="capsule-box"
+                   style="border-left: 4px solid #3b82f6; background: #fafafa; padding: 12px; border-radius: 8px;">
+                   <div class="inner-title"
+                       style="color: #3b82f6; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-eye-low-vision"></i> Capsule 2 : Daltonisme
+                   </div>
+                   <ul contenteditable="true">
+                       <li><strong>Action :</strong> Application directe d'un shader de distorsion visuelle
+                           (Deutéranopie ou Tritanopie) au casque. Le joueur doit localiser et ramasser des pièces
+                           géométriques cachées dans une forêt embrumée et une aire de jeux (Playground).</li>
+                       <li><strong>Sound :</strong> Sifflements de vent directionnel, alertes audio de succès ou
+                           d'échec, bruits de pas (Footsteps).</li>
+                       <li><strong>UI :</strong> Système d'inventaire dédié avec affichage de la pièce active tenue en
+                           main et zone d'interaction pour assembler le puzzle Tangram.</li>
+                   </ul>
+               </div>
+
+
+               <div class="capsule-box"
+                   style="border-left: 4px solid #8b5cf6; background: #fafafa; padding: 12px; border-radius: 8px;">
+                   <div class="inner-title"
+                       style="color: #8b5cf6; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-bolt-lightning"></i> Capsule 3 : Spectre Autistique
+                   </div>
+                   <ul contenteditable="true">
+                       <li><strong>Action :</strong> Labyrinthe plongé dans le noir complet où seule la torche éclaire.
+                           Toutes les 5 secondes, un coup de tonnerre visuel et sonore perturbe le joueur. En l'absence
+                           de repli rapide dans les maisons-refuges japonaises, les commandes d'axes s'inversent.
+                           L'objectif est de trouver la clé cachée et la porte de sortie.</li>
+                       <li><strong>Sound :</strong> Détonations lourdes et grondements de tonnerre spatialisés.</li>
+                       <li><strong>UI :</strong> Éclairs lumineux à l'écran et jauge de perturbation / stress cognitive
+                           dynamique.</li>
+                   </ul>
+               </div>
+
+
+               <div class="capsule-box"
+                   style="border-left: 4px solid #eab308; background: #fafafa; padding: 12px; border-radius: 8px;">
+                   <div class="inner-title"
+                       style="color: #eab308; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-flask"></i> Capsule 4 : Dyslexie Dynamique
+                   </div>
+                   <ul contenteditable="true">
+                       <li><strong>Action :</strong> Réaliser une manipulation de chimie en lisant un protocole altéré
+                           (mots mélangés, glyphes inversés POV dyslexique). Toutes les 3 secondes, un faisceau de
+                           lumière solaire éblouit le tableau, obligeant le joueur à fermer physiquement les rideaux.
+                       </li>
+                       <li><strong>Sound :</strong> Effets sonores de validation ou d'erreur de dosage chimique.</li>
+                       <li><strong>UI :</strong> Menus d'interaction avec le bécher, sélecteur chromatique du
+                           précipité, étiquetage des composants et énoncé de la solution au tableau.</li>
+                   </ul>
+               </div>
+
+
+               <div class="capsule-box"
+                   style="border-left: 4px solid #10b981; background: #fafafa; padding: 12px; border-radius: 8px;">
+                   <div class="inner-title"
+                       style="color: #10b981; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-graduation-cap"></i> Fin : Retour d'Expérience (REX)
+                   </div>
+                   <ul contenteditable="true">
+                       <li><strong>Action :</strong> Phase d'analyse. Le joueur étudie des documents informatifs et
+                           pédagogiques, répond en direct à un quiz interactif pour reconstituer une clé secrète, puis
+                           saisit le code PIN final en interagissant physiquement avec les flèches de l'UI 3D.</li>
+                       <li><strong>Sound :</strong> Retours d'effets sonores de validation (succès / échec).</li>
+                       <li><strong>UI :</strong> Affichage des ressources textuelles, fiches de synthèse et interface
+                           3D diégétique avec flèches directionnelles permettant de faire défiler les chiffres de 1 à 9
+                           pour la saisie du code PIN.</li>
+                   </ul>
+               </div>
+
+
+              
+
+
+              
+           </div>
+
+
+        
+
+
+
+
+       </div>
+
+
+
+
+       <div class="column">
+
+
+        
+<div class="card" style="border-color: #0b1b3d;">
+           <div class="card-header-pill" contenteditable="true">
+               <i class="fa-solid fa-cubes"></i>8. PRODUCTION D'ASSETS & PIPELINES
+           </div>
+
+
+           <div style="display: flex; flex-direction: column; gap: 15px;">
+
+
+               <div>
+                   <div class="inner-title"
+                       style="color: var(--accent-red); font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-mountain-sun"></i> Environnement & Décors
+                   </div>
+                   <ul contenteditable="true">
+                       <li><strong>Extérieur Procédural :</strong> Génération de terrain à base de Bruit de Perlin.
+                       </li>
+                       <li><strong>Flore Low-Poly :</strong> Arbres générés de façon procédurale avec une esthétique
+                           facettée.</li>
+                       <li><strong>Roches & Reliefs :</strong> Terrain de la capsule Mobilité Réduite et Mont Fuji
+                           sculptés via l'outil Terrain de Unity.</li>
+                       <li><strong>Labyrinthe :</strong> Murs agencés et générés dynamiquement par algorithme.</li>
+                       <li><strong>Architecture & Ambiance :</strong> Couloir bordé de bâtiments japonais
+                           traditionnels, aires de jeux (Playgrounds), pièces japonaises intimistes et salle de classe
+                           (Classroom).</li>
+                   </ul>
+               </div>
+
+
+               <div>
+                   <div class="inner-title"
+                       style="color: var(--accent-red); font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-wand-magic-sparkles"></i> Shaders & Effets Spéciaux (VFX)
+                   </div>
+                   <ul contenteditable="true">
+                       <li><strong>Eau Dynamique :</strong> Conçue sur-mesure via le Shader Graph de Unity.</li>
+                       <li><strong>Systèmes Éléments :</strong> Effets de feu et de fluides générés par le Texture
+                           System de Unity.</li>
+                       <li><strong>Atmosphère & Brume :</strong> Nuages volumétriques et brouillard gérés via l'outil
+                           <em>CloudsToy</em>.</li>
+                       <li><strong>Éclairage Solaire :</strong> Simulation volumétrique des rayons lumineux en Ray
+                           Marching.</li>
+                   </ul>
+               </div>
+
+
+               <div>
+                   <div class="inner-title"
+                       style="color: var(--accent-red); font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-screwdriver-wrench"></i> Intégration, Props & UI
+                   </div>
+                   <ul contenteditable="true">
+                       <li><strong>Rig Joueur (Character) :</strong> Utilisation du plugin XR Unity standard, calibré
+                           avec ses samples natifs.</li>
+                       <li><strong>Props Interactifs :</strong> Torche nomade, porte-torche mural, escaliers, bus de
+                           transit, béchers de laboratoire, rideaux occultants et fiole de solution chimique à 3
+                           couleurs distinctes (réalisée maison).</li>
+                       <li><strong>UI & Design Graphique :</strong> Interfaces entièrement conçues à la main à l'aide
+                           de Canva et du système Canvas UI de Unity.</li>
+                       <li><strong>Éléments de Saisie :</strong> Boîtes de dialogue scénarisées, système de suivi des
+                           quêtes sur-mesure, fascicules de documentation pour la salle REX et pavé de saisie pour le
+                           code PIN.</li>
+                       <li><strong>Ressources Externes :</strong> Iconographie des touches (sourcées et générées par
+                           IA) et banques audio immersives extraites de <em>Pixabay</em>.</li>
+                   </ul>
+               </div>
+
+
+           </div>
+       </div>
+
+
+      
+
+
+            <div class="card parchment-card" style="border: 4px solid #22c55e;">
+               <div class="card-header-pill" contenteditable="true" style="background:#15803d; ">
+                   <i class="fa-solid fa-brush" style="color:#bbf7d0;"></i> DIRECTION ARTISTIQUE & STYLE "GAMAN"
+               </div>
+               <div style="display:flex; gap:15px; flex-direction:column;">
+                   <p style="font-size: 0.82rem; color: #166534;  line-height: 1.4;" contenteditable="true">
+                       <strong>Philosophie Empathique :</strong> Inspiré directement de l'approche émotionnelle de
+                       <em>"That Dragon, Cancer"</em>. Valorisation du concept traditionnel du <strong>Gaman
+                           (我慢)</strong> : l'art d'endurer les épreuves physiques et mentales avec patience, dignité et
+                       résilience.
+                   </p>
+                   <div style="display: flex;gap:10px;flex-direction:row;">
+                       <img src="./g.png" alt="Exemple de style artistique Gaman"
+                           style="border-radius:10px; border:2px solid #b38f43;flex:1;height:200px;">
+                       <img src="./jeu.jpg" alt="Jeu"
+                           style="border-radius:10px; border:2px solid #b38f43;flex: 2;height:200px;">
+                   </div>
+                   <p style="font-size: 0.82rem; color: #166534;  line-height: 1.4;" contenteditable="true">
+                       <strong>Identité Visuelle :</strong> Ambiance japonaise épurée et apaisante. Nuances douces de
+                       marrons chauds, de rouge et de rose Sakura. Les structures de secours prennent la forme de
+                       pavillons traditionnels, l'environnement intègre des ponts en arc, des lanternes en papier et
+                       des Torii sacrés.
+                   </p>
+                   <img src="./tori.png" alt="Jeu"
+                       style="border-radius:10px; border:2px solid #b38f43;flex: 2;width: 50%;margin:0 auto;display:block;   ">
+               </div>
+           </div>
+
+
+          
+
+
+
+
+               <div class="card" style="border-color: #b38f43;">
+                   <div class="card-header-pill" style="background-color: #b38f43; border-color: #8c6d2e;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-map-signs" style="color: #ffeeb3;"></i> CARTOGRAPHIE : USER JOURNEY
+                   </div>
+
+
+                   <div>
+                       <div class="inner-title" style="color: #b38f43; border-bottom-color: #fcf8ed;"
+                           contenteditable="true">
+                           <i class="fa-solid fa-route"></i> Parcours Utilisateur & Expérience Émotionnelle
+                       </div>
+                       <p style="font-size: 0.8rem; color: #4a5568; margin-bottom: 12px;" contenteditable="true">
+                           Visualisation de la courbe d'empathie, des pics de stress (TSA, Dyslexie) et des phases de
+                           soulagement à travers les 5 capsules du jeu.
+                       </p>
+                   </div>
+
+
+                   <div
+                       style="width: 100%; border: 2px dashed #b38f43; border-radius: 10px; background: #fafafa; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; position: relative; overflow: hidden;">
+
+
+                       <img id="userJourneyImg" src="Vr_Tajini - Page 1.png" alt="User Journey Omoiyari"
+                           style="width: 100%; height: auto; border-radius: 6px; display: block; object-fit: contain;">
+
+
+                       <input type="file" id="imageUploader" accept="image/*" style="display: none;"
+                           onchange="previewImage(event)">
+                   </div>
+
+
+                   <div style="font-size: 0.75rem; color: #718096; border-top: 1px solid #e2e8f0; padding-top: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-circle-info"></i> <strong>Note :</strong> Ce schéma suit la transition
+                       narrative depuis le refus d'entretien de Sagaeru jusqu'au débriefing final sur ordinateur.
+                   </div>
+               </div>
+
+
+ <div class="card" style="border-color: #22c55e;">
+               <div class="card-header-pill" style="background-color: #15803d; border-color: #22c55e;"
+                   contenteditable="true">
+                   <i class="fa-solid fa-star" style="color: #bbf7d0;"></i> FEATURES PRIORITAIRES (NICE-TO-HAVES)
+               </div>
+               <div class="sub-box-nice" contenteditable="true"
+                   style="color: #166534; font-size: 0.82rem; line-height: 1.4;">
+                   <strong>&bull; Suivi Optique des Mains (Hand Tracking) :</strong> Remplacement complet des modèles
+                   de manettes par des mains virtuelles pour une préhension diégétique totale.<br>
+                   <strong>&bull; Gestion Équilibrée de l'Autisme :</strong> Restrictions volumétriques strictes des
+                   zones de repli (Refuges limités en utilisation).<br>
+                   <strong>&bull; Échelle Dynamique de Difficulté :</strong> Modes adaptatifs réduisant le temps
+                   imparti des objectifs pour accentuer la pression sensorielle.<br>
+                   <strong>&bull; Évolutivité du projet :</strong> Architecture modulaire pensée pour intégrer de
+                   nouveaux handicaps facilement (capsules additionnelles).<br>
+                   <strong>&bull; Formulaires de Quiz Directs :</strong> Saisie et validation des réponses interactives
+                   au sein même de la salle REX.
+               </div>
+           </div>
+
+
+
+
+       <div class="card" style="border-color: #b38f43;">
+           <div class="card-header-pill" style="background-color: #b38f43; border-color: #725c2f;"
+               contenteditable="true">
+               <i class="fa-solid fa-book-bookmark" style="color: #ffeeb3;"></i> DOCUMENTATION, RECHERCHES & SOURCES
+           </div>
+
+
+           <p style="font-size: 0.8rem; color: #b38f43; line-height: 1.4;" contenteditable="true">
+               <strong>Note d'intention médicale et éthique :</strong> Notre travail d'immersion se base sur des
+               documents de recherche clinique et des témoignages pour retranscrire fidèlement comment les personnes en
+               situation de handicap perçoivent leur environnement et surmonter leurs défis quotidiens.
+           </p>
+
+
+           <div style="display: flex; flex-direction: column; gap: 12px;">
+
+
+               <div>
+                   <div class="inner-title"
+                       style="color: #b38f43; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-graduation-cap"></i> Fondements Scientifiques & Conceptuels
+                   </div>
+                   <ul contenteditable="true">
+                       <li><strong>Dyslexie :</strong> <a
+                               href="https://www.tousalecole.fr/content/dyslexie-et-dysorthographie" target="_blank"
+                               style="color: var(--accent-red); text-decoration: none;">Accompagnement pédagogique &
+                               Troubles - Tous à l'École</a></li>
+                       <li><strong>Daltonisme :</strong> <a href="https://fr.wikipedia.org/wiki/Daltonisme"
+                               target="_blank" style="color: var(--accent-red); text-decoration: none;">Fiche médicale
+                               Wikipédia</a> et guides de perception <a
+                               href="https://www.topito.com/top-trucs-savoir-daltoniens" target="_blank"
+                               style="color: var(--accent-red); text-decoration: none;">Topito Réalités</a></li>
+                       <li><strong>Shaders Daltoniens :</strong> <a
+                               href="http://blog.eppz.eu/design-color-blind-users/" target="_blank"
+                               style="color: var(--accent-red); text-decoration: none;">Matrice mathématique et filtres
+                               de conversion - Eppz Blog</a></li>
+                       <li><strong>Concept Culturel :</strong> <a
+                               href="https://www.ishiki-coaching.com/blog/20-concepts-japonais-pour-nourrir-son-developpement-personnel"
+                               target="_blank" style="color: var(--accent-red); text-decoration: none;">Omoiyari et
+                               développement - Ishiki Coaching</a></li>
+                   </ul>
+               </div>
+
+
+               <div>
+                   <div class="inner-title"
+                       style="color: #5c413c; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-cube"></i> Modélisations & Décors 3D (Sketchfab)
+                   </div>
+                   <ul contenteditable="true"
+                       style="max-height: 200px; overflow-y: auto; padding-right: 5px; border-right: 2px solid #eef2f6;">
+                       <li><strong>Labo Chimie :</strong> <a
+                               href="https://sketchfab.com/3d-models/chemestry-lab-classroom-8ae79eab8a0d48ad9d7a0f02319024db"
+                               target="_blank">Classroom Lab</a> / <a
+                               href="https://sketchfab.com/3d-models/stylized-chemistry-set-41e5f46a588649658d579069d00f8bbc"
+                               target="_blank">Stylized Chemistry Set</a></li>
+                       <li><strong>Aires de Jeux :</strong> <a
+                               href="https://sketchfab.com/3d-models/big-playground-structure-antares-2501b15580c446bf8f5f88aed8fd7ff0"
+                               target="_blank">Playground Antares Structure</a></li>
+                       <li><strong>Architecture Japonaise :</strong> <a
+                               href="https://sketchfab.com/3d-models/japanese-ish-room-22011ec3681b44d788ffc787925239dd"
+                               target="_blank">Traditional Room</a> / <a
+                               href="https://sketchfab.com/3d-models/sushi-ramen-booth-a5f157162371471b86f6fd5fc64e786c"
+                               target="_blank">Ramen Booth</a> / <a
+                               href="https://sketchfab.com/3d-models/japanese-street-at-night-f1f3d442801e40f993e24a7b1e53d1ba"
+                               target="_blank">Street at Night</a></li>
+                       <li><strong>Mobilier & Props :</strong> <a
+                               href="https://sketchfab.com/3d-models/shoji-screen-d3dec406af444af7b5025134005a9696"
+                               target="_blank">Shoji Screen</a> / <a
+                               href="https://sketchfab.com/3d-models/futon-bed-c2651a434cff49e0a2e41a3828d38a89"
+                               target="_blank">Futon Bed</a> / <a
+                               href="https://sketchfab.com/3d-models/japanese-study-desk-18da6abd259441aea570168cc86bc0ef"
+                               target="_blank">Study Desk</a></li>
+                       <li><strong>Ponts Traditionnels :</strong> <a
+                               href="https://sketchfab.com/3d-models/japanese-bridge-3a28eb0aee514e458671e75f1b393a4c"
+                               target="_blank">Bridge V1</a> / <a
+                               href="https://sketchfab.com/3d-models/traditional-japanese-bridge-7a58c496216f42bca9a37d725be2ef0f"
+                               target="_blank">Traditional Arc Bridge</a></li>
+                       <li><strong>Décoration & Lanternes :</strong> <a
+                               href="https://sketchfab.com/3d-models/japanese-traditional-wall-scroll-d4a38adefee64cbebf0c2ccad72e8ea7"
+                               target="_blank">Wall Scroll</a> / <a
+                               href="https://sketchfab.com/3d-models/japanese-paper-lantern-4450069fee444ae0920aa5babd5d9239"
+                               target="_blank">Paper Lantern</a> / <a
+                               href="https://sketchfab.com/3d-models/japanese-lamp-aae37f2c1dc848378f37f4c5fd6255f0"
+                               target="_blank">Traditional Lamp</a></li>
+                       <li><strong>Échoppes & Structures :</strong> <a
+                               href="https://sketchfab.com/3d-models/japanese-shop-5f82ffdd51954c68a7c40b24e8e6a8e0"
+                               target="_blank">Shop Module</a> / <a
+                               href="https://sketchfab.com/3d-models/japaanese-roof-e246c366aa8b4585a37350c3220874c4"
+                               target="_blank">Modular Roof</a> / <a
+                               href="https://sketchfab.com/3d-models/japanese-tea-room-diorama-bf436d5e74844415a80d435d2a9b1b1a"
+                               target="_blank">Tea Room Diorama</a></li>
+                       <li><strong>Nourriture :</strong> <a
+                               href="https://sketchfab.com/3d-models/japanese-ramen-f65a8eab51794fbc8c7941101a354a54"
+                               target="_blank">Ramen Bowl Assets</a></li>
+                   </ul>
+               </div>
+
+
+               <div>
+                   <div class="inner-title"
+                       style="color: #5c413c; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #eef2f6; padding-bottom: 4px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"
+                       contenteditable="true">
+                       <i class="fa-solid fa-store"></i> Unity Asset Store, Fonts & Audio
+                   </div>
+                   <ul contenteditable="true">
+                       <li><strong>Shrine Pack (Torii, Lanterns) :</strong> <a
+                               href="https://assetstore.unity.com/packages/3d/props/shrine-pack-torii-stonelantern-paperlantern-288878"
+                               target="_blank">Unity Store Link</a></li>
+                       <li><strong>Japanese Garden & Wood :</strong> <a
+                               href="https://assetstore.unity.com/packages/3d/vegetation/trees/japanese-garden-pack-179492"
+                               target="_blank">Garden Pack</a> / <a
+                               href="https://assetstore.unity.com/packages/2d/textures-materials/wood/stylized-wood-textures-213607"
+                               target="_blank">Stylized Wood Textures</a></li>
+                       <li><strong>Chemistry Lab Items Pack :</strong> <a
+                               href="https://assetstore.unity.com/packages/3d/environments/chemistry-lab-items-pack-220212"
+                               target="_blank">Lab Item Assets</a></li>
+                       <li><strong>Typographies (Google Fonts) :</strong> <a
+                               href="https://fonts.google.com/specimen/Zen+Maru+Gothic" target="_blank">Zen Maru
+                               Gothic</a> & <a href="https://fonts.google.com/specimen/Vibur" target="_blank">Vibur</a>
+                       </li>
+                       <li><strong>Atmosphères Sonores :</strong> Banques libres de droits sourcées via <a
+                               href="https://pixabay.com" target="_blank">Pixabay Audio</a></li>
+                   </ul>
+               </div>
+
+
+           </div>
+       </div>
+
+
+
+
+          
+       </div>
+      
+</body>
+
+
+</html>
+

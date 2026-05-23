@@ -384,12 +384,9 @@
 
 
    <div class="toolbar">
-       <h1 contenteditable="true"><i class="fa-solid fa-pen-to-square"></i> OMOIYARI GDD Live Engine &mdash; Modifiez
-           directement vos blocs de configuration puis exportez</h1>
+       <h1 contenteditable="true"><i class="fa-solid fa-wheelchair"></i> Omoiyari </h1>
        <div class="actions-group">
-           <button class="btn btn-save" onclick="saveHTML()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer le GDD
-               (.html)</button>
-           <button class="btn btn-print" onclick="window.print()"><i class="fa-solid fa-file-pdf"></i> Imprimer /
+           <button class="btn btn-print" onclick="downloadCanvas()"><i class="fa-solid fa-file-pdf"></i> Imprimer /
                PDF</button>
        </div>
    </div>
@@ -1181,6 +1178,19 @@
 
           
        </div>
+
+
+       <script>
+
+
+           function downloadCanvas(){
+               const link = document.createElement('a');
+               link.download = 'User_Journey_Omoiyari.png';
+               link.href = document.getElementById('userJourneyImg').src;
+               link.href = canvas.toDataURL('image/png');
+               link.click();
+           }
+       </script>
       
 </body>
 

@@ -1186,7 +1186,7 @@
            function downloadCanvas(){
                const link = document.createElement('a');
                link.download = 'User_Journey_Omoiyari.png';
-               link.href = document.getElementById('userJourneyImg').src;
+           //    link.href = document.getElementById('userJourneyImg').src;
                link.href = canvas.toDataURL('image/png');
                link.click();
            }

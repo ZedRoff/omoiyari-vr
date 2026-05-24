@@ -7,8 +7,6 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>OMOIYARI - GDD Dashboard & Diagramme VR</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
    <style>
        :root {
            --bg-color: #0b1b3d;
@@ -44,73 +42,31 @@
        }
 
 
-       /* Barre d'outils */
-       .toolbar {
-           background: rgba(255, 255, 255, 0.95);
-           padding: 15px 30px;
-           border-radius: 50px;
-           margin-bottom: 30px;
-           width: 100%;
-           max-width: 1600px;
-           display: flex;
-           justify-content: space-between;
-           align-items: center;
-           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-           border: 2px solid var(--accent-red);
-           position: sticky;
-           top: 10px;
-           z-index: 100;
-       }
-
-
-       .toolbar h1 {
-           font-size: 1.1rem;
+/* Boîte du Pitch */
+       .pitch-box {
+           background: #ffffff;
+           border-left: 6px solid var(--accent-red);
+           padding: 18px 20px;
+           border-radius: 12px;
+           font-size: 0.9rem;
+           line-height: 1.5;
            color: var(--text-dark);
+           box-shadow: 0 8px 0px rgba(0, 0, 0, 0.15);
+           border-top: 1px solid #e2e8f0;
+           border-right: 1px solid #e2e8f0;
+           border-bottom: 1px solid #e2e8f0;
        }
 
-
-       .actions-group {
-           display: flex;
-           gap: 12px;
-       }
-
-
-       .btn {
-           color: white;
-           border: none;
-           padding: 10px 22px;
-           font-size: 0.85rem;
-           font-weight: bold;
-           border-radius: 25px;
-           cursor: pointer;
-           transition: all 0.2s ease;
+       .pitch-box strong {
+           color: var(--accent-red);
            display: flex;
            align-items: center;
-           gap: 8px;
+           gap: 6px;
+           margin-bottom: 6px;
+           text-transform: uppercase;
+           font-size: 0.8rem;
+           letter-spacing: 0.5px;
        }
-
-
-       .btn-print {
-           background-color: var(--accent-red);
-       }
-
-
-       .btn-print:hover {
-           background-color: #aa1220;
-           transform: translateY(-2px);
-       }
-
-
-       .btn-save {
-           background-color: #0b1b3d;
-       }
-
-
-       .btn-save:hover {
-           background-color: #17326c;
-           transform: translateY(-2px);
-       }
-
 
        /* Grille */
        .diagram-container {
@@ -382,29 +338,14 @@
 
 <body>
 
-
-   <div class="toolbar">
-       <h1 contenteditable="true"><i class="fa-solid fa-wheelchair"></i> Omoiyari </h1>
-       <div class="actions-group">
-           <button class="btn btn-print" onclick="downloadCanvas()"><i class="fa-solid fa-file-pdf"></i> Imprimer /
-               PDF</button>
-       </div>
-   </div>
-
-
    <div class="diagram-container">
 
 
        <div class="column">
-           <div class="toolbar" style="display:flex; gap:15px;">
-               <span contenteditable="true" style="display:flex;gap:5px;"><i class="fas fa-bullhorn"></i>
-                   <h1>Pitch</h1>
-               </span>
-               <div style="background:black;width:1px;height:150px;"></div>
-               <p>
-                   Un jeu VR immersif qui plonge le joueur dans des capsules sensorielles simulant différents handicaps
-                   afin de faire naître l’empathie et sensibiliser aux défis du quotidien des personnes en situation de
-                   handicap.
+<div class="pitch-box">
+               <strong contenteditable="true"><i class="fas fa-bullhorn"></i> Concept & Pitch du Projet</strong>
+               <p contenteditable="true">
+                   Un jeu VR immersif qui plonge le joueur dans des capsules sensorielles simulant différents handicaps afin de faire naître l’empathie et sensibiliser aux défis du quotidien des personnes en situation de handicap.
                </p>
            </div>
 
@@ -1179,26 +1120,6 @@
           
        </div>
 
-
-       <script>
-
-function downloadCanvas() {
-        const element = document.body; 
-
-        const options = {
-            scale: 2,             
-            useCORS: true,        
-            backgroundColor: "#0b1b3d"
-        };
-
-        html2canvas(element, options).then(function(canvas) {
-            const link = document.createElement('a');
-            link.download = 'Cahier_des_Charges_Omoiyari_2026.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        });
-    }
-       </script>
       
 </body>
 

@@ -1184,10 +1184,11 @@
 
 
            function downloadCanvas(){
-               const link = document.createElement('a');
-               link.download = 'User_Journey_Omoiyari.png';
-               link.href = document.getElementById('userJourneyImg').src;
-               link.click();
+                 const canvas = document.getElementById('diagramCanvas');
+                 const link = document.createElement('a');
+                link.download = 'Infographie_Omoiyari_VR_2026.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
            }
        </script>
       

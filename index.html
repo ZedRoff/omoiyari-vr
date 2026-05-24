@@ -7,7 +7,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>OMOIYARI - GDD Dashboard & Diagramme VR</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
    <style>
        :root {
@@ -1182,14 +1182,22 @@
 
        <script>
 
+function downloadCanvas() {
+        const element = document.body; 
 
-           function downloadCanvas(){
-                 const canvas = document.getElementById('diagramCanvas');
-                 const link = document.createElement('a');
-                link.download = 'Infographie_Omoiyari_VR_2026.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-           }
+        const options = {
+            scale: 2,             
+            useCORS: true,        
+            backgroundColor: "#0b1b3d"
+        };
+
+        html2canvas(element, options).then(function(canvas) {
+            const link = document.createElement('a');
+            link.download = 'Cahier_des_Charges_Omoiyari_2026.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+    }
        </script>
       
 </body>

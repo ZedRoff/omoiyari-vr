@@ -1,14 +1,13 @@
-# omoiyari-vr
+# Omoiyari
 
-## Lien google drive
+Bienvenue dans ce repository concernant notre projet de VR réalisé dans le cadre de l'unité Projet Multidisciplinaire 4 encadré par M. Badr TAJINI.
 
-https://drive.google.com/drive/folders/1AuY-oYIoTGxp0Dc3-jVfVcXx09t--21i?usp=drive_link
+Dans ce dernier, vous trouverez : 
 
-## Lien APK
+1. Le design document (cahier des charges)
+2. Une vidéo qui présente le jeu
+3. Le fichier APK permettant d'injecter le jeu dans votre casque Meta Quest 2
+4. Le lien vers le google drive contenant le code source du projet
+5. Le lien vers le notion contenant les explications et choix.
 
-https://drive.google.com/file/d/1HbeYWdftbxQMWpBQYQrfkELUHs1egDcF/view?usp=drive_link
-
-## Lien vidéo démo
-
-Soon...
-
+> Bonne lecture

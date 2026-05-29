@@ -1,4 +1,4 @@
-# Omoiyari
+# Omoiyari-VR
 
 Bienvenue dans ce repository concernant notre projet de VR réalisé dans le cadre de l'unité Projet Multidisciplinaire 4 encadré par M. Badr TAJINI.
 

@@ -357,7 +357,12 @@
 
     <div style="display: flex; gap: 15px; align-items: center; flex-shrink: 0;">
         
-       
+        <a href="https://github.com/ZedRoff/omoiyari-vr/" target="_blank" style="background: #ffffff; border: 2px solid #000000; padding: 10px 16px; border-radius: 10px; text-align: center; text-decoration: none; display: block; box-shadow: 3px 3px 0px #000000; transition: transform 0.1s ease, box-shadow 0.1s ease;">
+            <div style="font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 2px;">Espace de Travail</div>
+            <div style="font-size: 0.85rem; color: #000000; font-weight: 800; display: flex; align-items: center; gap: 6px;">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBpAgjyTmbZqNifhkIsHXtr3clSdPvxQ5kIg&s" alt="Github" style="width: 14px; height: 14px;"> Ouvrir le Github
+            </div>
+        </a>
 
         <div style="background: #f8fafc; border: 2px solid var(--border-dark); padding: 10px 16px; border-radius: 10px; text-align: center; min-width: 110px;">
             <div style="font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 2px;">Développement</div>
@@ -554,6 +559,17 @@
                        <li><strong>UI / Interactions :</strong> Manipulation d'une torche physique pour allumer un
                            brasier de validation.</li>
                    </ul>
+                      <div
+                       style="width: 100%; border: 2px dashed #b38f43; border-radius: 10px; background: #fafafa; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; position: relative; overflow: hidden;">
+
+
+                       <img id="userJourneyImg" src="./Website/Assets/salle_1.png" alt="User Journey Omoiyari"
+                           style="width: 100%; height: auto; border-radius: 6px; display: block; object-fit: contain;">
+
+
+                       <input type="file" id="imageUploader" accept="image/*" style="display: none;"
+                           onchange="previewImage(event)">
+                   </div>
                </div>
 
 
@@ -571,6 +587,17 @@
                        <li><strong>FX Audio :</strong> Souffle de vent directionnel et retours sonores de bruits de pas
                            (Footsteps).</li>
                    </ul>
+                    <div
+                       style="width: 100%; border: 2px dashed #b38f43; border-radius: 10px; background: #fafafa; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; position: relative; overflow: hidden;">
+
+
+                       <img id="userJourneyImg" src="./Website/Assets/salle_2.png" alt="User Journey Omoiyari"
+                           style="width: 100%; height: auto; border-radius: 6px; display: block; object-fit: contain;">
+
+
+                       <input type="file" id="imageUploader" accept="image/*" style="display: none;"
+                           onchange="previewImage(event)">
+                   </div>
                </div>
            </div>
 
@@ -603,6 +630,17 @@
                        <li><strong>Système de Refuges :</strong> Maisons japonaises pour apaiser la jauge de
                            perturbation.</li>
                    </ul>
+                    <div
+                       style="width: 100%; border: 2px dashed #b38f43; border-radius: 10px; background: #fafafa; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; position: relative; overflow: hidden;">
+
+
+                       <img id="userJourneyImg" src="./Website/Assets/salle_3.png" alt="User Journey Omoiyari"
+                           style="width: 100%; height: auto; border-radius: 6px; display: block; object-fit: contain;">
+
+
+                       <input type="file" id="imageUploader" accept="image/*" style="display: none;"
+                           onchange="previewImage(event)">
+                   </div>
                </div>
 
 
@@ -615,6 +653,17 @@
                        les 3 secondes, un rayon de soleil aveugle l'affichage, forçant le joueur à interagir
                        physiquement avec les rideaux de la salle.
                    </p>
+                    <div
+                       style="width: 100%; border: 2px dashed #b38f43; border-radius: 10px; background: #fafafa; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; position: relative; overflow: hidden;">
+
+
+                       <img id="userJourneyImg" src="./Website/Assets/salle_4.png" alt="User Journey Omoiyari"
+                           style="width: 100%; height: auto; border-radius: 6px; display: block; object-fit: contain;">
+
+
+                       <input type="file" id="imageUploader" accept="image/*" style="display: none;"
+                           onchange="previewImage(event)">
+                   </div>
                </div>
 
 
@@ -627,6 +676,17 @@
                        compétences et déverrouille l'ordinateur central par code PIN pour clore l'expérience.
                    </p>
                </div>
+                <div
+                       style="width: 100%; border: 2px dashed #b38f43; border-radius: 10px; background: #fafafa; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; position: relative; overflow: hidden;">
+
+
+                       <img id="userJourneyImg" src="./Website/Assets/salle_5.png" alt="User Journey Omoiyari"
+                           style="width: 100%; height: auto; border-radius: 6px; display: block; object-fit: contain;">
+
+
+                       <input type="file" id="imageUploader" accept="image/*" style="display: none;"
+                           onchange="previewImage(event)">
+                   </div>
            </div>
 
 
@@ -935,9 +995,9 @@
                        résilience.
                    </p>
                    <div style="display: flex;gap:10px;flex-direction:row;">
-                       <img src="./Website/g.png" alt="Exemple de style artistique Gaman"
+                       <img src="./Website/Assets/g.png" alt="Exemple de style artistique Gaman"
                            style="border-radius:10px; border:2px solid #b38f43;flex:1;height:200px;">
-                       <img src="./jeu.jpg" alt="Jeu"
+                       <img src="./Website/Assets/jeu.jpg" alt="Jeu"
                            style="border-radius:10px; border:2px solid #b38f43;flex: 2;height:200px;">
                    </div>
                    <p style="font-size: 0.82rem; color: #166534;  line-height: 1.4;" contenteditable="true">
@@ -946,7 +1006,7 @@
                        pavillons traditionnels, l'environnement intègre des ponts en arc, des lanternes en papier et
                        des Torii sacrés.
                    </p>
-                   <img src="./Website/tori.png" alt="Jeu"
+                   <img src="./Website/Assets/tori.png" alt="Jeu"
                        style="border-radius:10px; border:2px solid #b38f43;flex: 2;width: 50%;margin:0 auto;display:block;   ">
                </div>
            </div>
@@ -980,7 +1040,7 @@
                        style="width: 100%; border: 2px dashed #b38f43; border-radius: 10px; background: #fafafa; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; position: relative; overflow: hidden;">
 
 
-                       <img id="userJourneyImg" src="./Website/Vr_Tajini.png" alt="User Journey Omoiyari"
+                       <img id="userJourneyImg" src="./Website/Assets/Vr_Tajini.png" alt="User Journey Omoiyari"
                            style="width: 100%; height: auto; border-radius: 6px; display: block; object-fit: contain;">
 
 

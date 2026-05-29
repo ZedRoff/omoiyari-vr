@@ -183,7 +183,7 @@ Nous avons conçu une boucle d'effets visuels et physiques pour matérialiser la
     
     ![Capture d’écran 2026-05-25 à 06.04.51.png](Omoiyari%20-%20Experience%20immersive%20autour%20du%20handicap/Capture_decran_2026-05-25_a_06.04.51.png)
     
-    [](https://www.notion.so)
+    ![unnamed (2).png](Omoiyari%20-%20Experience%20immersive%20autour%20du%20handicap/unnamed_(2).png)
     
     ## Capsule 2 : Le Daltonisme (Altération Sensorielle)
     
@@ -199,7 +199,7 @@ Nous avons conçu une boucle d'effets visuels et physiques pour matérialiser la
     - **La contrainte visuelle :** Des scripts mathématiques appliqués en temps réel sur la caméra de la *XR Origin* simulent la Deutéranopie (absence de perception du vert) ou la Tritanopie (absence de perception du bleu). Les repères de couleurs s'effacent.
     - **Le Puzzle Tangram spatialisé :** Pour progresser, l'utilisateur doit collecter des blocs en bois disséminés sous forme de triangles dans l'aire de jeux. Il doit ensuite résoudre un puzzle de Tangram en sélectionnant et en déplaçant physiquement les pièces géométriques en *Drag & Drop* via ses contrôleurs pour les encastrer parfaitement dans leurs socles respectifs.
     
-    [](https://www.notion.so)
+    ![unnamed.png](Omoiyari%20-%20Experience%20immersive%20autour%20du%20handicap/unnamed.png)
     
     ## Capsule 3 : Le Spectre Autistique (Surcharge Cognitive & Sensorielle)
     
@@ -248,7 +248,7 @@ Nous avons conçu une boucle d'effets visuels et physiques pour matérialiser la
     - **Le Quiz d'évaluation :** Le joueur doit répondre à un questionnaire interactif afin de mettre un terme à la simulation.
     - **L'interface du Code PIN :** À l'aide de son pointeur laser, l'utilisateur doit viser et cliquer sur des flèches physiques en UI 3D pour incrémenter ou décrémenter manuellement des chiffres de 1 à 9 sur un ordinateur de bord virtuel. La saisie correcte de ce code PIN, calquée sur les réponses au quiz, déverrouille la clé de fin et clôture la session de sensibilisation.
 
-[](https://www.notion.so)
+![unnamed (1).png](Omoiyari%20-%20Experience%20immersive%20autour%20du%20handicap/unnamed_(1).png)
 
 ---
 

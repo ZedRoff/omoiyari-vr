@@ -1,1 +1,1 @@
-Lien vers le fichier apk du jeu : https://drive.google.com/file/d/1aiHDFcu3R1joGXsJW4WJGx6qJVzFBk1o/view?usp=drive_link
+[Cliquez ici pour télécharger le fichier](https://drive.google.com/uc?export=download&id=1aiHDFcu3R1joGXsJW4WJGx6qJVzFBk1o)

@@ -1,6 +1,8 @@
 # Code source
 
-Nous incluons dans le drive le code source du jeu, incluant les scripts VR, les nouveaux prefabs nécessaires. Etant donné un problème avec gitlfs, nous passons par Google Drive afin de transmettre le code source.
+Nous incluons le code source du jeu, incluant les scripts VR, les nouveaux prefabs nécessaires.
+
+Etant donné un problème avec gitlfs, nous passons par Google Drive afin de transmettre le code source complet du projet unity
 
 ## Lien vers le code source (Google Drive)
 

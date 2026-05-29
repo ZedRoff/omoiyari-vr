@@ -1,5 +1,7 @@
 # Omoiyari - Experience immersive autour du handicap (VR version)
 
+![Header](Omoiyari%20-%20Experience%20immersive%20autour%20du%20handicap/preview.webp.png)
+
 **Étudiants :**
 
 - Justine **HAKIM**

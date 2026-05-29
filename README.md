@@ -6,16 +6,16 @@ Bienvenue dans ce repository concernant notre projet de VR réalisé dans le cad
 
 - APK : Présent dans le dossier APK
 - Site web : Présent à cette url : [https://zedroff.github.io/omoiyari-vr](https://zedroff.github.io/omoiyari-vr)
+- Concilier sens et expression artistique (développé dans le notion)
 
 
 Dans ce dernier, vous trouverez : 
 
-1. Le design document (cahier des charges) (0_GDD)
-2. Le lien vers le notion contenant les explications et choix. (1_NOTION)
-3. Le lien vers le google drive contenant le code source du projet (2_SOURCE_CODE)
-4. Le fichier APK permettant d'injecter le jeu dans votre casque Meta Quest 2 (3_APK)
-5. Une vidéo qui présente le jeu (4_VIDEO)
-
-Il contient aussi le code du site présentant le GDD, dont il faut faire abstraction durant la visite de ce repository.
+1. Le design document présentée sous la forme d'un site web.
+2. Une vidéo démonstrative du fonctionnement de la VR dans le jeu, avec une capture vidéo du jeu et d'une capture d'un joueur qui utilise le casque pour jouer.
+3. L'APK téléchargeable et intégrable dans le casque meta quest.
+4. Le code source incluant scripts, prefabs et la scène VR (disponible dans un Google Drive).
+5. Les ressources utilisées pour la présentation orale (defense), incluant la présentation Canva ainsi que le texte utilisé pour étailler nos idées.
+6. Le contenu du notion réalisé à l'occasion de cette version finale, incluant tous les attendus du fichier `3_projet-&-roadmap-upm4_2526.pdf`
 
 > Bonne lecture

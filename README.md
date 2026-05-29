@@ -6,6 +6,8 @@ Bienvenue dans ce repository concernant notre projet de VR réalisé dans le cad
 
 - APK : Présent dans le dossier APK
 - Site web : Présent à cette url : [https://zedroff.github.io/omoiyari-vr](https://zedroff.github.io/omoiyari-vr)
+
+
 Dans ce dernier, vous trouverez : 
 
 1. Le design document (cahier des charges) (0_GDD)
